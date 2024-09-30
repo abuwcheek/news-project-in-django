@@ -43,7 +43,13 @@ class NewModel(BaseModel):
      description = models.TextField()
      body = models.TextField()
      tags = models.ManyToManyField(TagModel, blank=True)
-     views = models.IntegerField(default=0)     
+     views = models.IntegerField(default=0)    
+
+     # mashhur yangiliklarni ajratib olish uchun, yani admin dan true qip qoysak ajratib boreveradi
+     is_featured = models.BooleanField(default=False) 
+     
+     # chiqorilgan yangilikladan bashqalarini chiqorish uchun
+     is_published = models.BooleanField(default=False)
 
 
      def __str__(self):

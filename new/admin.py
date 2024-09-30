@@ -25,6 +25,7 @@ class TagModelAdmin(admin.ModelAdmin):
 class NewModelAdmin(admin.ModelAdmin):
      list_display = ('title', 'category', 'views', 'created_at', 'is_active')
      list_display_links = ('title', 'category', 'created_at')
+     list_filter = ('is_featured', 'is_published')
      search_fields = ('title', 'category', 'views', 'created_at')
      list_editable=('is_active',)
      prepopulated_fields = {'slug': ['title']}
