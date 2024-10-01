@@ -20,9 +20,9 @@
                             {% if forloop.counter == 1 %}
                             <div class="col-md-6">
                                 <div class="tn-img">
-                                    <img src="{{ new.image.url }}" style="width: 600px;" height="350px" />
+                                    <img src="{{ new.image.url }}" style="width: 550px;" height="340px" />
                                     <div class="tn-title">
-                                        <a href="">{{ new.title }}</a>
+                                        <a href="{% url 'detailurl' new.slug %}">{{ new.title }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -46,7 +46,7 @@
                                 <div class="tn-img">
                                     <img src="{{ new.image.url }}" style="width: 400px;" height="170px" />
                                     <div class="tn-title">
-                                        <a href="">{{ new.title | slice:"24" }}</a>
+                                        <a href="{% url 'detailurl' new.slug %}">{{ new.title | slice:"24" }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
                                 <div class="cn-img">
                                     <img src="{{ sport.image.url }}" style="width: 400px; height: 170px;" />
                                     <div class="cn-title">
-                                        <a href="">{{ sport.title | slice:"40" }}</a>
+                                        <a href="{% url 'detailurl' sport.slug %}">{{ sport.title | slice:"40" }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@
                                 <div class="cn-img">
                                     <img src="{{ techno.image.url }}" style="width: 400px; height: 170px;" />
                                     <div class="cn-title">
-                                        <a href="">{{ techno.title | slice:"38" }}</a>
+                                        <a href="{% url 'detailurl' techno.slug %}">{{ techno.title | slice:"38" }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@
                                 <div class="cn-img">
                                     <img src="{{ buss.image.url }}" style="width: 400px; height: 170px;" />
                                     <div class="cn-title">
-                                        <a href="">{{ buss.title | slice:"39" }}</a>
+                                        <a href="{% url 'detailurl' buss.slug %}">{{ buss.title | slice:"39" }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@
                                 <div class="cn-img">
                                     <img src="{{ enter.image.url }}" style="width: 400px; height: 170px;" />
                                     <div class="cn-title">
-                                        <a href="">{{ enter.title | slice:"39" }}</a>
+                                        <a href="{% url 'detailurl' enter.slug %}">{{ enter.title | slice:"39" }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -162,7 +162,7 @@
                                         <img src="{{ fnews.image.url }}" style="width: 150px; height: 90px;" />
                                     </div>
                                     <div class="tn-title">
-                                        <a href="">{{ fnews.title | slice:"39" }}</a>
+                                        <a href="{% url 'detailurl' fnews.slug %}">{{ fnews.title | slice:"39" }}</a>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -175,7 +175,7 @@
                                         <img src="{{ popnews.image.url }}" style="width: 150px; height: 90px;" />
                                     </div>
                                     <div class="tn-title">
-                                        <a href="">{{ popnews.title | slice:"39" }}</a>
+                                        <a href="{% url 'detailurl' popnews.slug %}">{{ popnews.title | slice:"39" }}</a>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -188,7 +188,7 @@
                                         <img src="{{ lnews.image.url }}" />
                                     </div>
                                     <div class="tn-title">
-                                        <a href="">{{ lnews.title | slice:"39" }}</a>
+                                        <a href="{% url 'detailurl' lnews.slug %}">{{ lnews.title | slice:"39" }}</a>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -217,7 +217,7 @@
                                         <img src="{{ mnews.image.url }}" />
                                     </div>
                                     <div class="tn-title">
-                                        <a href="">{{ mnews.title | slice:"45" }}</a>
+                                        <a href="{% url 'detailurl' mnews.slug %}">{{ mnews.title | slice:"45" }}</a>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -229,7 +229,7 @@
                                         <img src="{{ mread.image.url }}" />
                                     </div>
                                     <div class="tn-title">
-                                        <a href="">{{ mread.title | slice:"39" }}</a>
+                                        <a href="{% url 'detailurl' mread.slug %}">{{ mread.title | slice:"39" }}</a>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -241,7 +241,7 @@
                                         <img src="{{ mrecent.image.url }}" style="width: 150px; height: 90px;" />
                                     </div>
                                     <div class="tn-title">
-                                        <a href="">{{ mrecent.title | slice:"40" }}</a>
+                                        <a href="{% url 'detailurl' mrecent.slug %}">{{ mrecent.title | slice:"40" }}</a>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -264,7 +264,7 @@
                                 <div class="mn-img">
                                     <img src="{{ rnews.image.url }}"  style="width: 300px; height: 150px;" />
                                     <div class="mn-title">
-                                        <a href="">{{ rnews.title | slice:"39" }}</a>
+                                        <a href="{% url 'detailurl' rnews.slug %}">{{ rnews.title | slice:"39" }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -277,7 +277,7 @@
                             <h2>Read More</h2>
                             <ul>
                                 {% for polnews in political_news %}
-                                <li><a href="">{{ polnews.title | slice:"47" }}</a></li>
+                                <li><a href="{% url 'detailurl' polnews.slug %}">{{ polnews.title | slice:"47" }}</a></li>
                                 {% endfor %}
                             </ul>
                         </div>

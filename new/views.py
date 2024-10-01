@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from .models import CategoryModel, TagModel, NewModel, AboutModel, ContactModel, AdsModel
 
@@ -58,6 +58,32 @@ class IndexView(View):
           return render(request, 'index.html', context)
 
 
+
+class SinglePageView(View):
+     def get(self, request, slug):
+          detail_news = get_object_or_404(NewModel, slug=slug)
+          other_news = NewModel.objects.order_by('?')[:4]
+          this_ctg = NewModel.objects.exclude(is_published=False)[:4]
+          # ctg_count = detail_news.category_new.filter(is_active=True).count()
+          ctg_count = NewModel.objects.values('category').count()
+
+          
+          featured_news = NewModel.objects.filter(is_featured=False)[:4]
+          popular_news = NewModel.objects.filter(is_active=True).order_by('-views')[:4]
+          latest_news = NewModel.objects.filter(is_active=True).order_by('-created_at')[:4]
+          
+
+          context = {
+               'detail_news': detail_news,
+               'other_news': other_news,
+               'this_ctg': this_ctg,
+               'ctg_count': ctg_count,
+               
+               'featured_news': featured_news,
+               'popular_news': popular_news,
+               'latest_news': latest_news,
+          }
+          return render(request, 'single-page.html', context)
 
 class AboutView(View):
      def get(self, request):

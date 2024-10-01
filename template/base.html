@@ -94,8 +94,9 @@
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Categories</a>
                                 <div class="dropdown-menu">
-                                    <a href="#" class="dropdown-item">Sub Item 1</a>
-                                    <a href="#" class="dropdown-item">Sub Item 2</a>
+                                    {% for ctglist in category_list %}
+                                        <a href="#" class="dropdown-item">{{ ctglist.title }}</a>
+                                    {% endfor %}
                                 </div>
                             </div>
                             <a href="/" class="nav-item nav-link">About</a>

@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    single page
+{% endblock title %}
+
+
+
+{% block content %}
+  
+
+
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-wrap">
+            <div class="container">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">News</a></li>
+                    <li class="breadcrumb-item active">News details</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+        
+        <!-- Single News Start-->
+        <div class="single-news">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="sn-container">
+                            <div class="sn-img">
+                                <img src="{{ detail_news.image.url }}" />
+                            </div>
+                            <div class="sn-content">
+                                <h1 class="sn-title">{{ detail_news.title }}</h1>
+                                <p>
+                                    {{ detail_news.description }}
+                                </p>
+                                <br>
+                                <h3>Body:</h3>
+                                <p>
+                                    {{ detail_news.body }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="sn-related">
+                            <h2>Related News</h2>
+                            <div class="row sn-slider">
+                                {% for onews in other_news %}
+                                    <div class="col-md-4">
+                                        <div class="sn-img">
+                                            <img src="{{ onews.image.url }}" style="width: 400px; height: 170px;" />
+                                            <div class="sn-title">
+                                                <a href="{% url 'detailurl' onews.slug %}">{{ onews.title | slice:"40" }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="sidebar">
+                            <div class="sidebar-widget">
+                                <h2 class="sw-title">In This Category</h2>
+                                <div class="news-list">
+                                    {% for this in this_ctg %}
+                                    <div class="nl-item">
+                                        <div class="nl-img">
+                                            <img src="{{ this.image.url }}" />
+                                        </div>
+                                        <div class="nl-title">
+                                            <a href="{% url 'detailurl' this.slug %}">{{ this.title | slice:"38" }}</a>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            
+                            <div class="sidebar-widget">
+                                <div class="image">
+                                    {% for aone in ads_one %}
+                                        <a href="{{ aone.links }}"><img src="{{ aone.image.url }}" alt="Image"></a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            
+                            <div class="sidebar-widget">
+                                <div class="tab-news">
+                                    <ul class="nav nav-pills nav-justified">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="pill" href="#featured">Featured</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="pill" href="#popular">Popular</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="pill" href="#latest">Latest</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        <div id="featured" class="container tab-pane active">
+                                            {% for fnews in featured_news %}
+                                            <div class="tn-news">
+                                                <div class="tn-img">
+                                                    <img src="{{ fnews.image.url }}" />
+                                                </div>
+                                                <div class="tn-title">
+                                                    <a href="{% url 'detailurl' fnews.slug %}">{{ fnews.title | slice:"38" }}</a>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div id="popular" class="container tab-pane fade">
+                                            {% for pnews in popular_news %}
+                                                <div class="tn-news">
+                                                    <div class="tn-img">
+                                                        <img src="{{ pnews.image.url }}" />
+                                                    </div>
+                                                    <div class="tn-title">
+                                                        <a href="{% url 'detailurl' pnews.slug %}">{{ pnews.title | slice:"38" }}</a>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div id="latest" class="container tab-pane fade">
+                                            {% for lnews in latest_news %}
+                                                <div class="tn-news">
+                                                    <div class="tn-img">
+                                                        <img src="{{ lnews.image.url }}" />
+                                                    </div>
+                                                    <div class="tn-title">
+                                                        <a href="{% url 'detailurl' lnews.slug %}">{{ lnews.title | slice:"38" }}</a>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="sidebar-widget">
+                                <h2 class="sw-title">News Category</h2>
+                                <div class="category">
+                                    <ul>
+                                        {% for ctglist in category_list %}
+                                            <li><a href="">{{ ctglist.title }}</a><span>({{ ctglist.category.count }})</span></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="sidebar-widget">
+                                <div class="image">
+                                    <a href="https://htmlcodex.com"><img src="{% static 'img/ads-2.jpg' %}" alt="Image"></a>
+                                </div>
+                            </div>
+                            
+                            <div class="sidebar-widget">
+                                <h2 class="sw-title">Tags Cloud</h2>
+                                <div class="tags">
+                                    {% for tag in tags %}
+                                        <a href="">{{ tag.name }}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Single News End-->        
+        
+ 
+
+{% endblock content %}
