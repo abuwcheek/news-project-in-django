@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+search page
+{% endblock title %}
+
+
+
+{% block content %}
+
+ <h1><b>Search results</b></h1>
+ <br>
+ <br>   
+
+{% for search in searchnews %}
+
+    <div class="container">
+        <a href="{% url 'detailurl' search.slug %}">
+            <h3><b>{{ search.title }}</b></h3>
+            <img src="{{ search.image.url }}" alt="image" style="width: 700px; height: 500px;">
+        </a>
+        <br>
+        <br>
+        <b><p>Date: {{ search.created_at |date:"H:i / d-m-Y"  }} | <i class="fa fa-eye" aria-hidden="true"></i>{{ search.views }}</p></b>
+        <hr>
+        <br>
+        <br>
+    </div>
+
+{% endfor %}
+
+{% endblock content %}

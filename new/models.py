@@ -28,6 +28,9 @@ class CategoryModel(BaseModel):
 
 class TagModel(BaseModel):
      name = models.CharField(max_length=200)
+     
+     # mashhur yangiliklarni ajratib olish uchun, yani admin dan true qip qoysak ajratib boreveradi
+     is_featured = models.BooleanField(default=False) 
 
 
      def __str__(self):

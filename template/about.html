@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+  about page
+{% endblock title %}
+
+
+{% block menu %}
+
+<div class="navbar-nav mr-auto">
+    <a href="{% url 'index' %}" class="nav-item nav-link">Home</a>
+    <div class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Categories</a>
+        <div class="dropdown-menu">
+            {% for ctglist in category_list %}
+                <a href="{% url 'ctgdetail' ctglist.slug %}" class="dropdown-item">{{ ctglist.title }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <a href="{% url 'abouturl' %}" class="nav-item nav-link active">About</a>
+    <a href="{% url 'contacturl' %}" class="nav-item nav-link">Contact Us</a>
+</div>
+
+{% endblock menu %}
+
+
+{% block content %}
+
+
+    <!-- Breadcrumb Start -->
+    <div class="breadcrumb-wrap">
+      <div class="container">
+          <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+              <li class="breadcrumb-item active">About</li>
+          </ul>
+      </div>
+  </div>
+  <!-- Breadcrumb End -->
+
+
+  <div class="contact-info">
+    <h3>Assalomu Aleykum!</h3>
+    <p>
+        Man Istamov Abdullo Python Backend Dasturchisiman
+    </p>
+</div>
+
+
+{% endblock content %}

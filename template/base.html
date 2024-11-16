@@ -63,15 +63,19 @@
                     </div>
                     <div class="col-lg-6 col-md-4">
                         <div class="b-ads">
-                            <a href="/">
-                                <img src="{% static 'img/ads-1.jpg' %}" alt="Ads">
+                            {% for aone in ads_one %}
+                            <a href="{{ aone.links }}">
+                                <img src="{{ aone.image.url }}" alt="Ads" style="width: 400px; height: 100px;">
                             </a>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-4">
                         <div class="b-search">
-                            <input type="text" placeholder="Search">
-                            <button><i class="fa fa-search"></i></button>
+                            <form method="GET" action="{% url 'searchurl' %}">
+                                <input type="text" placeholder="Search" name="query">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -89,19 +93,9 @@
                     </button>
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto">
-                            <a href="/" class="nav-item nav-link active">Home</a>
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Categories</a>
-                                <div class="dropdown-menu">
-                                    {% for ctglist in category_list %}
-                                        <a href="#" class="dropdown-item">{{ ctglist.title }}</a>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            <a href="/" class="nav-item nav-link">About</a>
-                            <a href="/" class="nav-item nav-link">Contact Us</a>
-                        </div>
+                        {% block menu %}
+                            
+                        {% endblock menu %}
                         <div class="social ml-auto">
                             <a href="{{ about.twitter }}"><i class="fab fa-twitter"></i></a>
                             <a href="{{ about.facebook }}"><i class="fab fa-facebook-f"></i></a>
@@ -115,6 +109,15 @@
             </div>
         </div>
         <!-- Nav Bar End -->
+
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+      {% endif %}
 
 
 
@@ -141,6 +144,7 @@
                                   <a href="{{ about.linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                                   <a href="{{ about.instagram }}" target="_blank" target="_blank"><i class="fab fa-instagram"></i></a>
                                   <a href="{{ about.youtube }}" target="_blank"><i class="fab fa-youtube"></i></a>
+                                  <a href="{{ about.telegram }}" target="_blank"><i class="fab fa-telegram"></i></a>
                               </div>
                           </div>
                       </div>
@@ -151,7 +155,7 @@
                           <h3 class="title">Categories</h3>
                           <ul>
                             {% for ctglist in category_list %}
-                                <li><a href="#">{{ ctglist.title }}</a></li>
+                                <li><a href="{% url 'ctgdetail' ctglist.slug %}" style="text-decoration: none;">{{ ctglist.title }}</a></li>
                             {% endfor %}
                           </ul>
                       </div>
@@ -162,7 +166,7 @@
                           <h3 class="title">Tags</h3>
                           <ul>
                             {% for tag in tags %}
-                              <li><a href="#">{{ tag.name }}</a></li>
+                              <li><a href="#" style="text-decoration: none;">{{ tag.name }}</a></li>
                             {% endfor %}
                           </ul>
                       </div>

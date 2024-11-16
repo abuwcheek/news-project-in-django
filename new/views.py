@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
+from django.db.models import Q
+from django.contrib import messages
 from .models import CategoryModel, TagModel, NewModel, AboutModel, ContactModel, AdsModel
 
 
@@ -12,6 +14,19 @@ class CategoryModelListView(View):
                'ctg_list': ctg_list,
           }
           return render(request, 'base.html', context)
+
+
+
+class CategoryDetailView(View):
+     def get(self, request, slug):
+          category_news = get_object_or_404(CategoryModel, slug=slug)
+          ctg_detail = category_news.category_new.all()
+
+          context = {
+               'category_news': category_news,
+               'ctg_detail': ctg_detail,
+          }
+          return render(request, 'category_list.html', context)
 
 
 
@@ -72,6 +87,8 @@ class SinglePageView(View):
           popular_news = NewModel.objects.filter(is_active=True).order_by('-views')[:4]
           latest_news = NewModel.objects.filter(is_active=True).order_by('-created_at')[:4]
           
+          detail_news.views += 1
+          detail_news.save()
 
           context = {
                'detail_news': detail_news,
@@ -92,3 +109,51 @@ class AboutView(View):
                'about': about,
           }
           return render(request, 'base.html', context)
+
+
+
+class ContactView(View):
+     def get(self, request):
+          return render(request, 'contact.html')
+
+     
+     def post(self, request):
+          data=request.POST
+          contact=ContactModel()
+
+          contact.full_name = data.get('name')
+          contact.your_email = data.get('email')
+          contact.your_number = data.get('number')
+          contact.message = data.get('message')
+          if int(contact.your_number) > 13:
+               messages.warning(request, "Nomer xato kiritildi")
+               return render(request, 'contact.html')
+          elif int(contact.your_number) < 13:
+               messages.warning(request, "Nomer xato kiritildi")
+               return render(request, 'contact.html')
+
+
+          contact.save()
+
+          messages.success(request, "Ma'lumotlaringiz yuborildi.")
+          return redirect('index')
+
+
+
+
+class SearchView(View):
+    def get(self, request):
+          query = request.GET.get('query')
+          if not query:
+               return redirect('index')
+
+          news = NewModel.objects.all().filter(Q(title__icontains = query) | Q(description__icontains = query) | Q(body__icontains = query))
+          if not news:
+               messages.warning(request, "So'rov bo'yicha xabar topilmadi")
+               return redirect('index')
+
+          context = {
+               'searchnews': news 
+          }
+          messages.info(request, 'Siz izlagan xabarlar')
+          return render(request, 'search.html', context)

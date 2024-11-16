@@ -17,6 +17,7 @@ class CategoryModelAdmin(admin.ModelAdmin):
 class TagModelAdmin(admin.ModelAdmin):
      list_display = ('name', 'created_at', 'is_active')
      list_display_links = ('name', 'created_at')
+     list_filter = ('is_featured',)
      search_fields = ('name', 'created_at')
 
 
